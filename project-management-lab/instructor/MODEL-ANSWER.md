@@ -1,5 +1,7 @@
 # Project management lab — instructor model answer
 
+**Advanced route answer key:** covers A1–A4 and supporting workshops in the [advanced worksheets](../student/WORKSHEETS.md). For the beginner questions use [BEGINNER-SOLUTIONS.md](BEGINNER-SOLUTIONS.md). Shared R1 facts and evidence limits apply to both; reveal the selected key after the attempt.
+
 **Instructor-only · illustrative decisions, not MTR policy · tests below are expected oracles, not performed results.**
 
 Use [student/SAMPLE-ASSESSMENT-REPORT.md](../student/SAMPLE-ASSESSMENT-REPORT.md) and [student/WORKSHEETS.md](../student/WORKSHEETS.md). This key preserves exercises 4A–4D and expanded activities 4E–4J from section 4 of [06-instructor-workbook-and-solutions.md](https://github.com/0xdarkfloyd/securecodingtraining/blob/main/06-instructor-workbook-and-solutions.md), grounded in the actual tasks/presenter answers of [04-project-management-lab.md](https://github.com/0xdarkfloyd/securecodingtraining/blob/main/04-project-management-lab.md).

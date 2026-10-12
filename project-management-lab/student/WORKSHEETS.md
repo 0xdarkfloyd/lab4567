@@ -1,4 +1,6 @@
-# Project management lab — student worksheets
+# Advanced route — project management student worksheets
+
+**Advanced A1–A4:** all numbered exercises and their supporting workshops/challenges below. Submit the full evidence matrix, six-finding triage and action records, and board recommendation. See [route map](../README.md#choose-a-route-beginner-or-advanced). This remains paper-based; no actual test result is supplied or required.
 
 For an easier first attempt, use [beginner exercises](BEGINNER-EXERCISES.md) before these detailed worksheets. Both use the same baseline R1; the beginner route does not add findings or execution evidence.
 

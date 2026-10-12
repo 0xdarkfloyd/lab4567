@@ -8,6 +8,25 @@ Choose **one language and one implementation track** in the existing [module 03 
 
 ## Paired code and teaching guides
 
+### Choose a route: beginner or advanced
+
+Choose within the existing class allocation, not both full routes back-to-back. The scenario and secure expectations are identical; advanced means deeper source tracing, repair and independent evidence, not weaker rules.
+
+**Route is not implementation track:** beginner/advanced describes difficulty; Java/C# selects language; exercise/fixed selects source implementation for an individual run. Advanced starts with exercise and uses fixed later for comparison—never compile both together.
+
+| Route / order | Documents and exact parts | Required output |
+|---|---|---|
+| Beginner B1–B3 | [Guided questions](docs/BEGINNER-EXERCISES.md); [beginner key](solutions/BEGINNER-SOLUTIONS.md) after attempt | Weakness rows, boundary table/drawing, race explanation and paper-only retry design. |
+| Advanced A1 — search | [Lab 1](docs/lab1/README.md): **Contract first, Route, Evidence packet**; C# [guide steps 2–4](dotnet/GUIDE.md) | All 12 search cases, manual review, bounded repair/rerun and prepared-query/supplier-binding evidence. |
+| Advanced A2 — model/broker | [Lab 2](docs/lab2/README.md): **Model/source exercise, Six mandatory broker cases**; C# guide step 6 | Scripted proposals, tool/schema validation, trusted identity/resource policy, quota and minimal audit. |
+| Advanced A3 — alternate paths | Lab 2 **Same-class sweep**; C# guide step 5 | Read/preview/download/export/storage/cache/job checks, all-before-any export and current-policy checks at delivery. |
+| Advanced A4 — concurrency | Lab 2 **Executable races**; C# guide steps 7–8 | Deterministic revoke-before-use, atomic one-slot reservation, shared-lock evidence and all 37 results/limits. |
+| Optional advanced extension | Lab 2 **Design-only challenge** | Durable scoped idempotency/replay/effect coordination design; **not implemented/executed**. Follow-up only if time permits. |
+
+Advanced support: [walkthrough](docs/WALKTHROUGH.md), [Java prompts](docs/COPILOT-PROMPTS.md), [C# prompts](dotnet/COPILOT-PROMPTS.md). Advanced keys: [Java](solutions/README.md), [C#](dotnet/SOLUTIONS.md) and selected-language fixed source, after independent findings. These support the route rather than add required tasks.
+
+**Readiness:** explain query data versus SQL structure, identity versus permission, proposals versus authority, and check/use races; predict permitted/denied cases and read selected-language methods. Meet documented execution prerequisites or mark source/paper results **not run**. C# recorded execution remains blocked. Beginners can progress to selected advanced tasks without repeating equivalent work.
+
 **Beginner route:** start with [simple exercises and Copilot prompts](docs/BEGINNER-EXERCISES.md), then compare with the separate [beginner solutions](solutions/BEGINNER-SOLUTIONS.md). Three tasks cover security weaknesses, untrusted data/boundaries and race/retry correctness. Use them in place of equivalent initial analysis tasks, not as added mandatory class time. Java and C# share the questions; no code or test oracle is changed.
 
 | Activity | Java exercise / reference fixed | C# exercise / reference fixed |

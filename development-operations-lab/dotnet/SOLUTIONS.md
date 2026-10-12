@@ -1,4 +1,6 @@
-# Instructor reference and fix rationale
+# Advanced route — C# instructor reference and fix rationale
+
+This C# key supports advanced A1–A4 in the [route map](../README.md#choose-a-route-beginner-or-advanced). The shared [beginner key](../solutions/BEGINNER-SOLUTIONS.md) answers B1–B3. Expected behavior is not evidence that C# was compiled or executed.
 
 The fixed implementation is a reference, not production certification. Expected 37/37 is **unverified until compiled and run with suitable tooling**. Do not weaken, delete or invert tests to hide exercise findings.
 

@@ -9,6 +9,13 @@ Three standalone, synthetic training packs. The operations and project-managemen
 
 Each route covers security weaknesses, untrusted data/boundaries and reliability/concurrency problems. New paper examples are clearly separate from existing findings/code. These routes simplify equivalent initial tasks rather than adding mandatory teaching time. Beginner documents are synchronized from the training repository; its PDF index below includes printable copies.
 
+## Advanced routes — existing full lab tasks
+
+- **Operations A1–A4:** [route map](development-operations-lab/README.md#choose-a-route-beginner-or-advanced), [advanced Lab 1](development-operations-lab/docs/lab1/README.md), [advanced Lab 2](development-operations-lab/docs/lab2/README.md), or [C# advanced guide](development-operations-lab/dotnet/GUIDE.md). Full source review/repair, 37 independent cases, alternate-path sweep and deterministic race evidence. Durable idempotency is an optional design-only extension. [Java key](development-operations-lab/solutions/README.md) / [C# key](development-operations-lab/dotnet/SOLUTIONS.md).
+- **PM A1–A4:** [route map](project-management-lab/README.md#choose-a-route-beginner-or-advanced), [advanced worksheets](project-management-lab/student/WORKSHEETS.md) and [advanced model answer](project-management-lab/instructor/MODEL-ANSWER.md). All six findings, evidence/triage/remediation records, supporting workshops and board recommendation. Still paper-based, not code execution.
+
+Choose beginner or advanced within the existing allocation. Shared scenarios/prerequisites/evidence limits are unchanged. Readiness guidance and exact required outputs are in each route map; answers are for debrief. This route classification concerns operations and PM only; the separate prompt-injection handbook is unchanged.
+
 | Pack | Start here | Reference solutions |
 |---|---|---|
 | Development and security operations — Java and C# | [Lab guide](development-operations-lab/README.md), [Java Lab 1](development-operations-lab/docs/lab1/README.md), [Java Lab 2](development-operations-lab/docs/lab2/README.md), [C# guide](development-operations-lab/dotnet/GUIDE.md) | [Java key](development-operations-lab/solutions/README.md), [C# key](development-operations-lab/dotnet/SOLUTIONS.md); separate exercise/fixed code in each language |

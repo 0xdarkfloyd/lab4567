@@ -1,4 +1,6 @@
-# Lab 1 — independent review and relational proof
+# Advanced route — Lab 1: independent review and relational proof
+
+**Advanced A1.** For guided introductory questions use [beginner exercises B1](../BEGINNER-EXERCISES.md). Here, complete the full contract and evidence route below. See [route selection](../../README.md#choose-a-route-beginner-or-advanced). Execution requires the documented prerequisites; blocked source review is not a test pass.
 
 ## Contract first
 

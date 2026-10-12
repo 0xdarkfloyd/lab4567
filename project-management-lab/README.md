@@ -8,6 +8,22 @@ This pack supplies the sample report needed for the project-management exercises
 
 ## Start here
 
+### Choose a route: beginner or advanced
+
+Both use the same R1 report and three-hour allocation. Beginner is guided explanation; advanced is the complete evidence-to-board-decision packet. Advanced PM remains **paper-based**, with no coding prerequisite or new CVSS calculation. Do not add both full routes together.
+
+| Route / order | Documents and exact parts | Required output |
+|---|---|---|
+| Beginner P-B1–P-B3 | [Guided questions and five quick checks](student/BEGINNER-EXERCISES.md); [beginner key](instructor/BEGINNER-SOLUTIONS.md) after attempt | Three finding rows, boundaries and three labelled reliability designs. |
+| Advanced A1 — evidence/scope | [Advanced worksheets](student/WORKSHEETS.md), **Exercise 1**; **production equivalence** and **precise evidence wording** workshops | Classify all six findings, at least five evidence requests and corrected scope/claim wording. |
+| Advanced A2 — contextual triage | Same worksheets, **Exercise 2**, **automatic bad queue**, **vendor negotiation** | All F1–F6 treatments with reasons; at least five ranking errors and negotiated evidence commitments. |
+| Advanced A3 — owned remediation | Same worksheets, **Exercise 3** and associated change/retest procurement, acceptance/segregation and incident tabletop tasks | Six action records with containment, correction, owner, rollback, independent retest and residual-risk handling. |
+| Advanced A4 — board decision | Same worksheets, **Exercise 4** and following update/minutes discussions | One-page scoped recommendation, options, conditions, authority and corrected minutes; hypothetical updates never overwrite baseline R1. |
+
+The [full model answer](instructor/MODEL-ANSWER.md) is the **advanced key**, including alternatives and evidence/marking guidance, revealed after submission. The [sample report](student/SAMPLE-ASSESSMENT-REPORT.md), CVSS primer and source map are **shared references**, not advanced-only tasks.
+
+**Readiness:** distinguish case fact, assertion, inference and unknown; severity versus priority; proposed versus completed actions. Specify owners and closure evidence. P-B1 prepares A1–A3; P-B2 prepares boundary/evidence analysis; P-B3 prepares coordination discussion but does not add R1 findings. Choose selected progression tasks rather than repeat equivalent work.
+
 **New to security or project-management triage?** Start with [beginner questions and Copilot prompts](student/BEGINNER-EXERCISES.md): explain three findings, identify boundaries, and design simple controls for overlapping edits, duplicate work and stale decisions. The separate [beginner solutions](instructor/BEGINNER-SOLUTIONS.md) provide plain-language answers. These are an easier entry route, not extra mandatory class time; reliability examples are labelled hypotheticals, not new R1 findings.
 
 | Audience | Document | Purpose |

@@ -1,4 +1,6 @@
-# Fixed explanation, independent oracles and limits
+# Advanced route — fixed explanation, independent oracles and limits
+
+This reference key supports advanced A1–A4 in the [route map](../README.md#choose-a-route-beginner-or-advanced). For guided B1–B3 answers use [BEGINNER-SOLUTIONS.md](BEGINNER-SOLUTIONS.md). Fixed code is a reference for debrief, not a substitute for independent findings or execution evidence.
 
 ## Lab 1 solution
 

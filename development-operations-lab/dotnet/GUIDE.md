@@ -1,4 +1,6 @@
-# Student guide
+# Advanced route — C# student guide
+
+This is the C# counterpart of advanced A1–A4 in the [route map](../README.md#choose-a-route-beginner-or-advanced): steps 2–4 search, step 6 broker, step 5 alternate surfaces and steps 7–8 concurrency/full-suite evidence. For the beginner route use the shared [B1–B3 questions](../docs/BEGINNER-EXERCISES.md). Select one language only. If SDK/runtime prerequisites are unavailable, mark execution **not run**.
 
 1. Read [README.md](README.md); arrange an approved .NET 8+ SDK/runtime separately. Never deploy exercise code. Use only synthetic evidence.
 2. Run the exercise demo, then `lab1` with the documented launcher. First runs need explicit `-Restore`. Preserve the FAIL/nonzero findings.

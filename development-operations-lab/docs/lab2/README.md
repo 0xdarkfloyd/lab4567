@@ -1,4 +1,6 @@
-# Lab 2 — untrusted source versus application authority
+# Advanced route — Lab 2: untrusted source versus application authority
+
+**Advanced A2–A4:** model/broker contract, same-class sweep and deterministic races. The final design-only challenge is an **optional advanced extension**, not an implemented feature. For guided introductory questions use [beginner exercises B2/B3](../BEGINNER-EXERCISES.md); see [route selection](../../README.md#choose-a-route-beginner-or-advanced).
 
 ## Model/source exercise
 
