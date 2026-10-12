@@ -4,6 +4,10 @@
 
 ## Contract first
 
+**Definition:** a behavior/security **contract** is the required observable behavior and guarantees of the application: permitted results, rejected requests, returned/logged data, and restrictions on database/content access or other effects. It is not a legal agreement or a programming interface. Expectations come from the scenario's rules, not whatever the current implementation happens to return.
+
+**Example:** when Alice searches for the exact sample title `Contract`, the contract requires **200 with ID 101 only and only id/name fields**, without logging her token. When an anonymous user searches, it requires **401 and no database query**. A response status alone is insufficient if a prohibited query or disclosure already happened. Here `Contract` is also a sample document title; the Java `Contract` class contains lab data/response types. Neither is the conceptual definition. See the [beginner explanation and example table](../BEGINNER-EXERCISES.md#what-does-contract-mean-in-this-lab).
+
 Before reading implementation code, write expectations:
 
 1. Alice's exact `Contract` search yields **101 only**; Bob's yields **102 only**.

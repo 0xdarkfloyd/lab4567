@@ -2,6 +2,8 @@
 
 This is the C# counterpart of advanced A1–A4 in the [route map](../README.md#choose-a-route-beginner-or-advanced): steps 2–4 search, step 6 broker, step 5 alternate surfaces and steps 7–8 concurrency/full-suite evidence. For the beginner route use the shared [B1–B3 questions](../docs/BEGINNER-EXERCISES.md). Select one language only. If SDK/runtime prerequisites are unavailable, mark execution **not run**.
 
+**Contract = required behavior/security guarantees**, not a legal agreement or interface. For example, Alice's exact `Contract` search must return **200 with 101 only and only id/name**; anonymous search must return **401 without a database query**. `Contract` is also the sample document title, a separate use of the word. Read the shared [definition and examples](../docs/BEGINNER-EXERCISES.md#what-does-contract-mean-in-this-lab) before predicting cases; these are expectations, not observed C# results.
+
 1. Read [README.md](README.md); arrange an approved .NET 8+ SDK/runtime separately. Never deploy exercise code. Use only synthetic evidence.
 2. Run the exercise demo, then `lab1` with the documented launcher. First runs need explicit `-Restore`. Preserve the FAIL/nonzero findings.
 3. Trace [exercise/src/Search.cs](exercise/src/Search.cs): authentication is not supplier authorization; concatenation changes SQL grammar; entity serialization and header logs leak unnecessary data. Predict cases 01–12 before editing.

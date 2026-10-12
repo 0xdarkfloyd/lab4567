@@ -16,6 +16,23 @@ Alice belongs to supplier A (SUP-A); Bob belongs to supplier B (SUP-B). Document
 - **Race condition:** two operations overlap, and the result depends on their order.
 - **Oracle:** the expected result used to judge a test. An AI answer is not an oracle by itself.
 
+### What does “contract” mean in this lab?
+
+A **behavior/security contract** is the set of rules the application must satisfy: what is allowed, what is denied, which data may be returned or logged, and which actions must not happen before checks. It is **not a legal agreement** and does not mean a programming interface here. Write these expectations before inspecting or repairing code; the tests judge the code against them, not the other way around.
+
+| Example situation | Required behavior (the contract) | What to check |
+|---|---|---|
+| Alice searches for the exact document name `Contract` | Status **200**, ID **101 only**, with only id/name fields | Her supplier's matching document is returned; Bob's 102 and extra fields are absent. |
+| Bob searches for the same name | Status **200**, ID **102 only** | The same input does not give both users the same supplier's data. |
+| Anonymous user searches | **401**, no database query | Denial happens before database work, not only by hiding the response. |
+| Authenticated user has no supplier scope | **403**, no database query | Being signed in does not grant access. |
+| Search name is blank | **400**, no database query | Invalid input is rejected before database work. |
+| A permitted search succeeds | No tokens or sensitive content in captured logs | Successful functionality must still preserve data protection. |
+
+These are **expected results**, not a claim that the vulnerable code satisfies them or that you have run the checks. `Contract` in the first two rows is just a **sample document title**. The Java `Contract` class is a collection of lab data/response types; its name is not the definition of this concept.
+
+**Quick practice:** write one sentence beginning “When …, the application must …, and must not …”. Example: “When Alice searches for `Contract`, the application must return only 101 and must not return Bob's 102 or log her token.” Compare your sentence with the [full Lab 1 expectations](lab1/README.md#contract-first). This is a clarification within B1, not an extra required exercise.
+
 ### Open only three files first
 
 | Task | Java exercise file | C# exercise file |
