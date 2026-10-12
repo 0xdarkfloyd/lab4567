@@ -48,7 +48,8 @@ You are logged in to Kes as customer **Kelvin Wong Ka-ming** (`cust_1042`, Pro p
 
 ## 4. Challenges and tasks
 
-Each task needs a **different technique**. Tasks can be done in any order.
+Each task needs a **different technique**. Tasks can be done in any order. In the 90-minute session, focus on
+Challenge 1 and Challenge 2. Challenge 3 is a stretch for fast finishers or after class.
 
 ### Challenge 1 — Kestrel Support Bot
 

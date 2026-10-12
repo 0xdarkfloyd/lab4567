@@ -22,9 +22,9 @@ real credentials or company documents.
 | Technique (your words) | Name the technique in one line, then check it against the write-up revealed after solving. |
 | Root cause | Why it worked: the design flaw, not just "the AI was tricked". |
 
-## Exercise 1 — Challenge 1, tasks 1.1–1.5 (55 minutes + 10 debrief)
+## Exercise 1 — Challenge 1, tasks 1.1–1.5 (30 minutes + 5 debrief)
 
-Read **About this chatbot** before starting. List the defenses you see:
+Read **About this chatbot** before starting (2 minutes). List the defenses you see:
 
 | # | Defense (as listed in the lab) | What it can see | What it cannot see |
 |---|---|---|---|
@@ -48,7 +48,9 @@ Read **About this chatbot** before starting. List the defenses you see:
 |---|---|
 | | |
 
-## Exercise 2 — Challenge 1, tasks 1.6–1.10 (40 minutes)
+## Exercise 2 — Challenge 1, tasks 1.6–1.10 (20 minutes)
+
+Attempt **at least three** of these tasks. Leave the others blank or finish them after class.
 
 | Task | Solved? (Y/N) | Attempt that worked | Evidence | Defense that stopped earlier attempts | Technique (your words) | Root cause |
 |---|---|---|---|---|---|---|
@@ -58,22 +60,22 @@ Read **About this chatbot** before starting. List the defenses you see:
 | 1.9 | | | | | | |
 | 1.10 | | | | | | |
 
-**Tool-call evidence (tasks 1.4 and 1.8).** Copy the tool call(s) the bot made.
+**Tool-call evidence (tasks 1.4 and 1.8, if attempted).** Copy the tool call(s) the bot made.
 
 | Task | Tool name | Arguments | Result | Should this call have been allowed? Who should have decided? |
 |---|---|---|---|---|
 | 1.4 | | | | |
 | 1.8 | | | | |
 
-**Indirect injection (task 1.10).** Who is the victim, and why can't a filter on the *chat box* stop this attack?
+**Indirect injection (task 1.10, if attempted).** Who is the victim, and why can't a filter on the *chat box* stop this attack?
 
 | Victim | Path the attacker's text took into the model | Why chat-input filtering misses it |
 |---|---|---|
 | | | |
 
-## Exercise 3 — Challenge 2, Model Safety (20 minutes)
+## Exercise 3 — Challenge 2, Model Safety (15 minutes)
 
-For each task, record the framing you tried and the **Check** line the lab showed.
+Attempt **at least four** tasks. For each, record the framing you tried and the **Check** line the lab showed.
 
 | Task | Framing that failed | Check reason shown | Framing that worked | Check reason shown |
 |---|---|---|---|---|
@@ -93,7 +95,17 @@ organisation that relies only on the model's own safety training?
 |---|---|---|
 | | | |
 
-## Exercise 4 — Challenge 3 (stretch) and defender recommendations (20 minutes)
+## Exercise 4 — defender recommendations (10 minutes)
+
+Choose **two** different tasks you solved, at least one of them from 1.4, 1.5, 1.8, 1.9 or 1.10. For each, recommend a fix
+that addresses the **root cause**. "Add a better filter" or "write a stronger prompt" is not enough on its own.
+
+| # | Task | Root cause | Recommended fix (architecture / code / process) | Residual risk after the fix | Owner (role) |
+|---|---|---|---|---|---|
+| 1 | | | | | |
+| 2 | | | | | |
+
+## Stretch (after class) — Challenge 3, hardened bot
 
 **Hardened bot.** List the guardrails of Kes v2 and, for each task you attempted, the gap you used (or suspect).
 
@@ -102,16 +114,6 @@ organisation that relies only on the model's own safety training?
 | 3.1 | | | | |
 | 3.2 | | | | |
 | 3.3 | | | | |
-
-**Defender recommendations.** Choose **three** different tasks you solved (at least one from Challenge 1 tasks
-1.4/1.5/1.8/1.9/1.10 and at least one from Challenge 3). For each, recommend a fix that addresses the **root cause**.
-"Add a better filter" or "write a stronger prompt" is not enough on its own.
-
-| # | Task | Root cause | Recommended fix (architecture / code / process) | Residual risk after the fix | Owner (role) |
-|---|---|---|---|---|---|
-| 1 | | | | | |
-| 2 | | | | | |
-| 3 | | | | | |
 
 **Challenge:** "We added an AI guard and an AI judge, so the chatbot is now secure."
 
@@ -123,10 +125,11 @@ organisation that relies only on the model's own safety training?
 
 | Check | Done (Y/N) |
 |---|---|
+| Tasks 1.1–1.5, at least three of 1.6–1.10 and at least four Model Safety tasks attempted and recorded | |
 | Every attempted task has an evidence record, including failed attempts where useful | |
 | Evidence distinguishes what the bot *said*, what it *did* (tool calls) and what a defense *blocked* | |
 | Each technique is described in my own words and checked against the revealed write-up | |
 | Root causes name the design flaw (for example "secret in context", "authorisation only in the prompt") | |
-| Three defender recommendations, each with residual risk and an owner | |
+| Two defender recommendations, each with residual risk and an owner | |
 | No real personal data, real credentials or company documents included | |
 | I attacked only the lab's chatbots, with my own account, and did not share access details | |

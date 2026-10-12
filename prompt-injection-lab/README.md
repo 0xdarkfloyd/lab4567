@@ -2,7 +2,7 @@
 
 **Standalone participant pack · original synthetic case · browser-based hands-on lab.**
 
-This pack supports a three-hour, hands-on session on **prompt injection** and the **OWASP Top 10 for LLM Applications
+This pack supports a **90-minute**, hands-on session on **prompt injection** and the **OWASP Top 10 for LLM Applications
 (2025)**. Participants attack three deliberately vulnerable AI chatbots run by a fictional company, record their
 evidence, and turn each successful attack into a defensive recommendation. The lab application, its source code,
 access details and the answer key are **not part of this pack**. Your instructor provides access on the day.
@@ -65,21 +65,21 @@ observation, not as proof of reliability.
 
 ## Delivery and outputs
 
-Use the three-hour route below. Hints are hidden by default; the instructor releases them when a class is stuck.
+Use the 90-minute route below. Hints are hidden by default; the instructor releases them when a class is stuck.
+Ask participants to create their lab account before the session if possible, which saves about five minutes.
 
 | Elapsed minutes | Activity / pack output |
 |---|---|
-| 0–15 | Briefing: introduction above, rules of engagement, sign-in, the Kestrel company brief. |
-| 15–70 | Exercise 1: Challenge 1, tasks 1.1–1.5. Record evidence in the worksheets. |
-| 70–80 | Debrief: why rules, filters and "never reveal" instructions fail. |
-| 80–90 | Break. |
-| 90–130 | Exercise 2: Challenge 1, tasks 1.6–1.10 (filters, semantic leaks, actions, output handling, indirect injection). |
-| 130–150 | Exercise 3: Challenge 2 (Model Safety). Compare which framings the model resists. |
-| 150–170 | Exercise 4: Challenge 3 (hardened bot, stretch) and the defender recommendations. |
-| 170–180 | Wrap-up: defense-in-depth, and why architecture beats guardrails. |
+| 0–10 | Briefing: introduction above, rules of engagement, sign-in, the Kestrel company brief. |
+| 10–40 | Exercise 1: Challenge 1, tasks 1.1–1.5. Record evidence in the worksheets. |
+| 40–45 | Quick debrief: why rules, filters and "never reveal" instructions fail. |
+| 45–65 | Exercise 2: Challenge 1, **at least three** of tasks 1.6–1.10 (filters, semantic leaks, actions, output handling, indirect injection). |
+| 65–80 | Exercise 3: Challenge 2 (Model Safety), **at least four** tasks. Compare which framings the model resists. |
+| 80–90 | Exercise 4: two defender recommendations, then wrap-up on why architecture beats guardrails. |
+| Stretch / after class | Challenge 3 (hardened bot) and any remaining tasks. The lab stays open while the instructor keeps it running. |
 
-**Submit** the completed worksheets: an evidence record for every attempted task, a reflection per challenge and the
-three defender recommendations. Quote only short excerpts of model replies, as evidence. The scoreboard in the lab
+**Submit** the completed worksheets: an evidence record for every attempted task, the Model Safety reflection and two
+defender recommendations. Quote only short excerpts of model replies, as evidence. The scoreboard in the lab
 measures solved tasks; the worksheet shows *understanding*.
 
 ## Rules of engagement
