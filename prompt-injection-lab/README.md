@@ -59,7 +59,7 @@ Official reference: [OWASP Top 10 for LLM Applications](https://genai.owasp.org/
 discount codes and products do not exist. Email addresses and domains use the reserved `.example` domain. Each
 participant receives **different secret values**, so answers cannot be copied between participants.
 
-The AI models are real (served through Ollama Cloud), so their behaviour is genuine and **non-deterministic**: the same
+The AI models are real, so their behaviour is genuine and **non-deterministic**: the same
 prompt may succeed once and fail the next time. Treat a single refusal as weak evidence, and a single success as one
 observation, not as proof of reliability.
 
