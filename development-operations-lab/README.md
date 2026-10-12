@@ -8,6 +8,8 @@ Choose **one language and one implementation track** in the existing [module 03 
 
 ## Paired code and teaching guides
 
+**Answer-bearing demo capture:** [B1–B3 prompt-review logs and results](demo.md) includes the exact prompts, source-checked findings, draft corrections and before/after file-integrity logs. This was a read-only review, **not application/test execution**. Use after the learner attempt; this new Markdown capture is not yet included in the existing PDF export manifest.
+
 ### Choose a route: beginner or advanced
 
 Choose within the existing class allocation, not both full routes back-to-back. The scenario and secure expectations are identical; advanced means deeper source tracing, repair and independent evidence, not weaker rules.
