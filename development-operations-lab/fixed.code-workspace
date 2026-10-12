@@ -1,0 +1,8 @@
+{
+  "folders": [{ "path": "." }],
+  "settings": {
+    "java.project.sourcePaths": ["common/src", "fixed/src"],
+    "java.project.outputPath": "build/editor-fixed",
+    "java.project.referencedLibraries": ["lib/h2-2.3.232.jar"]
+  }
+}

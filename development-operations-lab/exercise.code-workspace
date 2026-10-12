@@ -1,0 +1,8 @@
+{
+  "folders": [{ "path": "." }],
+  "settings": {
+    "java.project.sourcePaths": ["common/src", "exercise/src"],
+    "java.project.outputPath": "build/editor-exercise",
+    "java.project.referencedLibraries": ["lib/h2-2.3.232.jar"]
+  }
+}
