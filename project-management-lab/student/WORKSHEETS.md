@@ -1,5 +1,7 @@
 # Project management lab — student worksheets
 
+For an easier first attempt, use [beginner exercises](BEGINNER-EXERCISES.md) before these detailed worksheets. Both use the same baseline R1; the beginner route does not add findings or execution evidence.
+
 **Use only [SAMPLE-ASSESSMENT-REPORT.md](SAMPLE-ASSESSMENT-REPORT.md), the fictional business context and explicitly labelled workshop injects.** There is no model queue or board answer in this document. All response cells are blank. Do not claim actual execution from synthetic case evidence.
 
 | Submission details | Entry |

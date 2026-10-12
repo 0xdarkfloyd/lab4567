@@ -2,6 +2,13 @@
 
 Two standalone, synthetic training packs copied from [securecodingtraining](https://github.com/0xdarkfloyd/securecodingtraining/tree/626b77a2d04543e1543c25d8a708d09a23fcaa2d). This repository contains exercises **and answers**; attempt the student tasks before opening reference keys or fixed source.
 
+## Beginner route — start here
+
+- Operations: [simple exercises and example Copilot prompts](development-operations-lab/docs/BEGINNER-EXERCISES.md), then [expanded solutions](development-operations-lab/solutions/BEGINNER-SOLUTIONS.md).
+- Project management: [beginner questions and example Copilot prompts](project-management-lab/student/BEGINNER-EXERCISES.md), then [expanded solutions](project-management-lab/instructor/BEGINNER-SOLUTIONS.md).
+
+Each route covers security weaknesses, untrusted data/boundaries and reliability/concurrency problems. New paper examples are clearly separate from existing findings/code. These routes simplify equivalent initial tasks rather than adding mandatory teaching time. Beginner documents are synchronized from the training repository; its PDF index below includes printable copies.
+
 | Pack | Start here | Reference solutions |
 |---|---|---|
 | Development and security operations — Java and C# | [Lab guide](development-operations-lab/README.md), [Java Lab 1](development-operations-lab/docs/lab1/README.md), [Java Lab 2](development-operations-lab/docs/lab2/README.md), [C# guide](development-operations-lab/dotnet/GUIDE.md) | [Java key](development-operations-lab/solutions/README.md), [C# key](development-operations-lab/dotnet/SOLUTIONS.md); separate exercise/fixed code in each language |

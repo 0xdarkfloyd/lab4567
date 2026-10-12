@@ -8,6 +8,8 @@ Choose **one language and one implementation track** in the existing [module 03 
 
 ## Paired code and teaching guides
 
+**Beginner route:** start with [simple exercises and Copilot prompts](docs/BEGINNER-EXERCISES.md), then compare with the separate [beginner solutions](solutions/BEGINNER-SOLUTIONS.md). Three tasks cover security weaknesses, untrusted data/boundaries and race/retry correctness. Use them in place of equivalent initial analysis tasks, not as added mandatory class time. Java and C# share the questions; no code or test oracle is changed.
+
 | Activity | Java exercise / reference fixed | C# exercise / reference fixed |
 |---|---|---|
 | Search / Lab 1 | [exercise](exercise/src/training/operations/Search.java) / [fixed](fixed/src/training/operations/Search.java) | [exercise](dotnet/exercise/src/Search.cs) / [fixed](dotnet/fixed/src/Search.cs) |

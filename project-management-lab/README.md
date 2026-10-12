@@ -8,6 +8,8 @@ This pack supplies the sample report needed for the project-management exercises
 
 ## Start here
 
+**New to security or project-management triage?** Start with [beginner questions and Copilot prompts](student/BEGINNER-EXERCISES.md): explain three findings, identify boundaries, and design simple controls for overlapping edits, duplicate work and stale decisions. The separate [beginner solutions](instructor/BEGINNER-SOLUTIONS.md) provide plain-language answers. These are an easier entry route, not extra mandatory class time; reliability examples are labelled hypotheticals, not new R1 findings.
+
 | Audience | Document | Purpose |
 |---|---|---|
 | Students | [student/SAMPLE-ASSESSMENT-REPORT.md](student/SAMPLE-ASSESSMENT-REPORT.md) | Formal R1 report, six finding records and short synthetic source pack; no model priorities or board answer. |
