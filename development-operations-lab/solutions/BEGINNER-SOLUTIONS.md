@@ -72,6 +72,262 @@ Expected design checks: same request twice gives one increment; simultaneous dup
 Challenge my concurrency fix. Can revocation still happen between check and use? Can both requests reserve the last slot? Can retries or crashes duplicate the hypothetical progress update? Propose a deterministic negative test and a good-path test for each. Clearly label which behavior the source implements and which is a design only. Report no actual results.
 ```
 
+## B1–B3 Java code-fix diffs and explanations
+
+These diffs explain the fixes for the [Java prompt-review demo](../demo.md). They compare the existing **exercise** and **fixed** Java sources; they do not apply changes to either track. C# equivalents remain linked above, but the diffs here are Java only. Imports/class declarations are omitted where unchanged or irrelevant; each fenced diff is a **review excerpt, not a standalone patch**. The linked fixed files contain the complete implementation. Line wrapping in the excerpts is for readability.
+
+**Evidence limit:** this documentation update does not compile or execute anything. Tests below are expected checks, not new PASS results. Keep shared fixtures and secure test expectations unchanged. Local locks/cache/jobs are teaching mechanisms, not production/distributed-system assurance.
+
+### B1: Search — parameters, authorization, validation and minimal data
+
+Compare [exercise Search](../exercise/src/training/operations/Search.java) with [fixed Search](../fixed/src/training/operations/Search.java). Replace the `Statement` import with `PreparedStatement`; the method's authenticated-identity lookup and anonymous 401 stay unchanged.
+
+```diff
+-        fixture.logs.add("Auth=" + authorization);
+-        String sql = "SELECT * FROM Documents WHERE Name = '" + name + "' ORDER BY Id";
+-        fixture.searchQueries.incrementAndGet();
+-        try (Connection c = fixture.connection(); Statement s = c.createStatement()) {
+-            try (ResultSet rs = s.executeQuery(sql)) { return new Response(200, Fixture.entities(rs)); }
+-        } catch (SQLException failure) {
+-            // Safe console error, but the vulnerable query still fails for legitimate apostrophes.
+-            return Response.empty(500);
++        synchronized (fixture.policyLock) {
++            if (!fixture.hasScope(identity)) return Response.empty(403);
++            if (name == null || name.isBlank() || name.length() > 100) return Response.empty(400);
++            fixture.logs.add("search:accepted");
++            try (Connection c = fixture.connection(); PreparedStatement s = c.prepareStatement(
++                    "SELECT Id, Name FROM Documents WHERE SupplierId = ? AND Name = ? ORDER BY Id")) {
++                s.setQueryTimeout(2); s.setMaxRows(100);
++                s.setString(1, identity.supplier()); s.setString(2, name);
++                fixture.searchQueries.incrementAndGet();
++                try (ResultSet rs = s.executeQuery()) { return new Response(200, Fixture.summaries(rs)); }
++            } catch (SQLException failure) { return Response.empty(500); }
+	    }
+```
+
+**Why each change matters:**
+
+- `hasScope()` rejects missing/revoked scope before database work. The supplier comes from the trusted identity, never a request/model field.
+- Parameters keep the name as data; the separate supplier predicate prevents cross-supplier matches. Neither control substitutes for the other.
+- Validation rejects null/blank/>100 names before the query. Do not trim or change case: the fixture intentionally uses exact matching. Length 100 remains valid.
+- `Id, Name` plus `Fixture.summaries()` minimizes returned fields. Safe event logging removes the credential sink; do not replace raw-token logging with unnecessary token hashes.
+- Holding `policyLock` through the scope check and query coordinates local revocation. Timeout/row cap bound database work; they do not grant permission.
+
+**Expected checks:** harness cases 01–12: Alice 101 only, Bob 102 only, apostrophe name 103, anonymous/unknown identity 401, NoScope 403 before DB, invalid names 400 before DB, SQL-like input treated literally, only id/name and no token/content/raw-argument logs. Preserve the exact-name and 100-character boundary tests.
+
+### B1/B2/B3: Broker — full validation, authorization and reservation lifecycle
+
+Compare [exercise Broker](../exercise/src/training/operations/Broker.java) with [fixed Broker](../fixed/src/training/operations/Broker.java). The complete reference adds `import java.util.Set;`. These changes belong together: schema validation alone does not repair authorization or races.
+
+```diff
+-        Decision decision = Decision.FAILED;
++        Decision decision = Decision.REJECTED;
++        boolean reserved = false;
++        boolean consumed = false;
+	    try {
+-            if (requester == null) { decision = Decision.DENIED; return new Outcome(decision, ""); }
+-            if (!budget.reserveUnsafe()) { decision = Decision.STOPPED; return new Outcome(decision, ""); }
++            if (proposal == null || proposal.tool() == null || proposal.arguments() == null)
++                return new Outcome(decision, "");
++            if (!Set.of("readDocument", "approveRisk").contains(proposal.tool())) return new Outcome(decision, "");
++            if (!proposal.arguments().keySet().equals(Set.of("documentId"))) return new Outcome(decision, "");
++            Object rawId = proposal.arguments().get("documentId");
++            if (!(rawId instanceof Integer id) || id < 1 || id > 999999) return new Outcome(decision, "");
++            decision = Decision.DENIED;
++            // Approval is NOT a permission grant. This supplier role can never approve risk.
++            if (requester == null || proposal.tool().equals("approveRisk") || !fixture.allowed(requester, id))
++                return new Outcome(decision, "");
++            if (!budget.reserve()) { decision = Decision.STOPPED; return new Outcome(decision, ""); }
++            reserved = true;
+		   afterInitialCheck.run();
+-            Object rawId = proposal.arguments().getOrDefault("documentId", 101);
+-            int id = rawId instanceof Integer number ? number : 101;
+-            // Unknown tools fall through to a mock effect. Extra identity/arguments are ignored.
+-            String body = "";
+-            if (proposal.tool().equals("readDocument")) body = fixture.materialize(id);
+-            fixture.toolEffects.incrementAndGet();
+-            decision = Decision.ALLOWED; return new Outcome(decision, body);
++            synchronized (fixture.policyLock) {
++                if (!fixture.allowed(requester, id)) return new Outcome(decision, "");
++                // Same lock as revoke: current permission, content and mock effect are one guarded operation.
++                consumed = true; // A started content read costs one unit even if it fails.
++                String body = fixture.materialize(id);
++                fixture.toolEffects.incrementAndGet();
++                decision = Decision.ALLOWED; return new Outcome(decision, body);
++            }
+	    } catch (SQLException | RuntimeException failure) {
+-            return new Outcome(decision, "");
+-        } finally { fixture.audit(decision); }
++            decision = Decision.FAILED; return new Outcome(decision, "");
++        } finally {
++            if (reserved && !consumed) budget.release();
++            fixture.audit(decision); // Enum only; never model args, tokens, contents or exception messages.
++        }
+```
+
+**Explanation:**
+
+1. Null/unknown/malformed proposals stay `REJECTED`. Require exactly `documentId`, Java `Integer` and the fixture range; never default malformed input to 101 or accept extra identity claims.
+2. `approveRisk` is a recognized operation but **not permitted** to this supplier role: valid proposals are `DENIED`, not executed. Unknown tools are `REJECTED`. Human confirmation cannot grant missing permission.
+3. `fixture.allowed()` uses trusted identity/current scope/private ownership metadata without releasing protected content. Check it before quota and again under the revocation guard before use.
+4. `reserve()` is atomic. Track reservation separately from consumption: denial before the read releases the unused unit in `finally`; a started read is charged even if it fails.
+5. Content retrieval and mock effect share the guard with the final permission decision. Audit contains the decision enum, not model arguments, tokens, content or raw exception text.
+
+**Expected checks:** cases 13–22 plus 34–37. Valid own read allows; foreign/unknown resource and NoScope deny; approval denies; unknown tool/string ID/extra key/malformed schema reject; exhausted quota stops. Denials/rejections produce no protected reads or effects. Revoke-before-use refunds unused quota; a started failed read maps safely to `FAILED` and is not refunded.
+
+### B2: Alternate surfaces — protect every path
+
+Compare [exercise Surfaces](../exercise/src/training/operations/Surfaces.java) with [fixed Surfaces](../fixed/src/training/operations/Surfaces.java). `preview`, `download` and `storage` already delegate to `read`, so repairing that common gate covers those adapters without duplicating policy.
+
+**Direct read:**
+
+```diff
+	public Content read(Identity who, int id) {
+-        if (who == null) return Content.denied(401);
+-        return retrieve(id);
++        synchronized (fixture.policyLock) {
++            if (who == null) return Content.denied(401);
++            if (!fixture.allowed(who, id)) return Content.denied(403);
++            return retrieve(id);
++        }
+	}
+```
+
+**Explanation/check:** anonymous returns 401; foreign/missing/revoked scope returns 403 before content. Keep current permission and retrieval in one guarded operation. Own read still succeeds; cases 23–26/32 cover wrong-supplier paths and good paths.
+
+**Export — authorize all before reading any:**
+
+```diff
+	public Content export(Identity who, List<Integer> ids) {
+-        StringBuilder out = new StringBuilder();
+-        for (int id : ids) out.append(read(who, id).body());
+-        return new Content(200, out.toString());
++        synchronized (fixture.policyLock) {
++            if (who == null) return Content.denied(401);
++            if (ids == null || ids.isEmpty() || ids.size() > 10 || ids.stream().anyMatch(java.util.Objects::isNull))
++                return Content.denied(400);
++            // Authorise ALL entries before any intermediate content read.
++            for (int id : ids) if (!fixture.allowed(who, id)) return Content.denied(403);
++            StringBuilder out = new StringBuilder();
++            for (int id : ids) {
++                Content result = retrieve(id);
++                if (result.status() != 200) return Content.denied(result.status());
++                out.append(result.body());
++            }
++            return new Content(200, out.toString());
++        }
+	}
+```
+
+**Explanation/check:** validate the batch, authorize every ID under the same guard, then retrieve. Do not read an allowed subset and later discard it when a foreign item is found. Case 27 expects mixed 101/102 to deny with zero reads; case 32 expects own 101/103 to work. Failure returns no partial response; reads already attempted on infrastructure failure are not erased.
+
+**Cache — scope keys and authorize hits:**
+
+```diff
+	public Content cached(Identity who, int id, String name) {
+-        if (cache.containsKey(name)) return new Content(200, cache.get(name));
+-        Content result = read(who, id); cache.put(name, result.body()); return result;
++        synchronized (fixture.policyLock) {
++            if (who == null) return Content.denied(401);
++            if (!fixture.allowed(who, id)) return Content.denied(403);
++            String key = who.supplier() + ":" + id; // Never keyed solely by display name.
++            if (cache.containsKey(key)) return new Content(200, cache.get(key));
++            Content result = retrieve(id);
++            if (result.status() == 200) cache.put(key, result.body());
++            return result;
++        }
+	}
+```
+
+**Explanation/check:** display name is not a unique supplier/resource identifier. Use trusted supplier plus ID, and check current permission before even a cache hit. Cache only successful content. Case 28 checks Bob's same-name prime cannot reach Alice; case 29 checks revocation blocks a hit. This local cache has no distributed invalidation or production retention guarantee.
+
+**Jobs — enqueue permission is not permanent:**
+
+```diff
+-    public Job enqueue(Identity who, int id) { return fixture.allowed(who, id) ? new Job(who, id) : null; }
++    public Job enqueue(Identity who, int id) {
++        synchronized (fixture.policyLock) { return fixture.allowed(who, id) ? new Job(who, id) : null; }
++    }
+	public Content run(Job job) {
+-        if (job == null) return Content.denied(403);
+-        return retrieve(job.documentId()); // Trusts stale enqueue decision.
++        return job == null ? Content.denied(403) : read(job.requester(), job.documentId());
+	}
+-    public Content deliver(Job job, Content completed) { return completed; }
++    public Content deliver(Job job, Content completed) {
++        synchronized (fixture.policyLock) {
++            if (job == null || !fixture.allowed(job.requester(), job.documentId())) return Content.denied(403);
++            return completed;
++        }
++    }
+```
+
+**Explanation/check:** trusted jobs retain requester/resource context, but permission is checked again at execution and delivery. Case 30 expects revoke-before-run to read nothing; case 31 expects revoke-before-delivery to disclose no completed content and perform no additional read. This is a local typed fixture, not durable/signed worker payload validation or real network delivery.
+
+### B3a: Atomic quota — choose the existing safe API
+
+The [shared Budget](../common/src/training/operations/Budget.java) deliberately contains both unsafe and safe functions. **Do not replace or delete the shared unsafe function:** it is needed to expose the exercise race. The real application-track change is the broker switch from `reserveUnsafe()` to `reserve()` shown above.
+
+For comparison, this conceptual method-body diff contrasts the two existing algorithms, not a patch to Budget:
+
+```diff
+-        int snapshot = unsafeRemaining;
+-        unsafeAfterSnapshot.run();
+-        if (snapshot <= 0) return false;
+-        unsafeRemaining = snapshot - 1; return true;
++        int current;
++        do {
++            current = remaining.get();
++            if (current <= 0) return false;
++        } while (!remaining.compareAndSet(current, current - 1));
++        return true;
+```
+
+**Explanation/check:** compare-and-set makes “check positive and decrement” one atomic reservation. A competing update retries instead of allowing both callers to spend the same unit. The two teaching algorithms use separate counters; `remaining()` reports the safe counter. Case 35 coordinates two callers with barriers and bounded waits: one allows, one stops, one read/effect. `release()` is called once for an unused reservation by the broker's `finally`, not for every failed/denied outcome indiscriminately.
+
+### B3b: Guarded read — recheck and use under revocation's lock
+
+```diff
+	public Content guardedRead(Identity who, int id) {
+	    if (!fixture.allowed(who, id)) return Content.denied(403);
+-        afterInitialCheck.run();
+-        return retrieve(id); // Check/use race, no recheck or shared guard.
++        afterInitialCheck.run(); // Test seam outside lock: revoke can win before linearisation.
++        synchronized (fixture.policyLock) {
++            if (!fixture.allowed(who, id)) return Content.denied(403);
++            return retrieve(id); // Current policy + materialisation inside the same revocation lock.
++        }
+	}
+```
+
+**Explanation/check:** the first check is not enough. The hook intentionally permits revocation to win before the final guarded operation; then the final check denies with zero reads. Hold the guard through retrieval, not just through the check. Cases 33/36 test the denial and guard; broker case 34 additionally tests refund. The unsafe broker has no initial resource check at all, so its full diff above adds one rather than assuming it existed. A read that linearizes before revocation can complete; later revocation cannot retract bytes already delivered.
+
+### B3c: Retry example — illustrative design diff, not Java implementation
+
+There is no existing progress-update feature to patch. The following **pseudocode** contrasts unsafe and proposed processing. Names such as `transaction` and `operations` are illustrative, not APIs supplied by this repository.
+
+```diff
+-onProgress(request):
+-    progress[request.jobId] += 1
+-    return progress[request.jobId]
++onProgress(request):
++    validate request and resolve the intended job/action
++    key = (jobId, action, stableOperationId)
++    fingerprint = canonicalArguments(request)
++    atomically in one transaction:
++        existing = operations.lookupForUpdate(key)
++        if existing exists:
++            if existing.fingerprint != fingerprint: reject conflict
++            return existing.completedResult
++        reserve key with a uniqueness constraint
++        progress[jobId] += 1
++        result = progress[jobId]
++        operations.storeCompleted(key, fingerprint, result)
++    return result after commit
+```
+
+**Explanation/check:** stable operation identity is separate from argument fingerprint. A duplicate with identical arguments returns the recorded result; different arguments with the same ID conflict. The effect and ledger commit together; otherwise crash/retry can reapply the increment. Define concurrency-conflict retry, in-progress recovery and retention/expiry policy. This assumes the count and ledger share a transactional store; external effects need additional coordination. For this harmless example no protected permission is involved; if adapted to protected work, add trusted principal/resource/action scope and replay authorization. Expected design checks: sequential/concurrent duplicates increment once, conflicting arguments reject, lost-response retry returns the original result, and interrupted transactions recover without double application. **No implementation or execution claim; no exactly-once delivery claim.**
+
 ## Simple debrief / marking guide
 
 Accept plain language. Ask the learner to explain **cause → consequence → fix → check**, not recite a label. Each of B1/B2/B3 is satisfactory when at least one clear example is correct and the submission completes the requested tables; stronger answers cover all cases and alternatives. This is formative feedback, not a new organisational pass threshold. Important corrections: SQL binding alone is not authorization; model output is not permission; revocation races are security relevant; expected checks are not executed results.

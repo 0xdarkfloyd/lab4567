@@ -213,6 +213,8 @@ The independent prompt answers found the main weaknesses, but source checking wa
 
 ## 7. Final results and evidence status
 
+**Code-fix follow-up:** [B1–B3 Java diffs and explanations](solutions/BEGINNER-SOLUTIONS.md#b1b3-java-code-fix-diffs-and-explanations) now compare the exercise and existing fixed implementations, map expected checks, and separate the retry pseudocode from implemented code. This later documentation addition does not change the original run record or constitute fix/test execution.
+
 | Activity | Actual status |
 |---|---|
 | B1 suggested prompt review | Completed; five consolidated security findings reported. |

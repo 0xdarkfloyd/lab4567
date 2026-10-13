@@ -8,7 +8,7 @@ Choose **one language and one implementation track** in the existing [module 03 
 
 ## Paired code and teaching guides
 
-**Answer-bearing demo capture:** [B1–B3 prompt-review logs and results](demo.md) includes the exact prompts, source-checked findings, draft corrections and before/after file-integrity logs. This was a read-only review, **not application/test execution**. Use after the learner attempt; this new Markdown capture is not yet included in the existing PDF export manifest.
+**Answer-bearing demo capture:** [B1–B3 prompt-review logs and results](demo.md) includes the exact prompts, source-checked findings, draft corrections and before/after file-integrity logs. See [code-fix diffs and explanations](solutions/BEGINNER-SOLUTIONS.md#b1b3-java-code-fix-diffs-and-explanations). This was a read-only review, **not application/test execution**. Both documents are included in the training repository's refreshed print package; use after the learner attempt.
 
 ### Choose a route: beginner or advanced
 
