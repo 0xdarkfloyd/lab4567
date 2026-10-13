@@ -2,6 +2,8 @@
 
 **Reference key: reveal after the [beginner exercises](../docs/BEGINNER-EXERCISES.md).** These are source-grounded explanations and expected checks, not a new test run. Keep common fixtures and independent tests unchanged. Java/C# names differ but the control goals match.
 
+**Language-specific materials:** [Java demo](../demo.md) / Java diffs below; [C# demo/results](../dotnet/demo.md) / [C# code-fix diffs and explanations](../dotnet/BEGINNER-SOLUTIONS.md). Select one language; these are parallel debrief materials, not extra mandatory work.
+
 ## B1 — security weaknesses and fixes
 
 Any three well-explained issues below meet the beginner task. Do not demand a particular framework or coding style if the invariant is preserved.

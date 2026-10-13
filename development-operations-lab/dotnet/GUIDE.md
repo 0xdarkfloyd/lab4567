@@ -1,5 +1,7 @@
 # Advanced route — C# student guide
 
+**Beginner C# debrief:** [B1–B3 prompt results/logs](demo.md) and [code-fix diffs/explanations](BEGINNER-SOLUTIONS.md), after attempting the shared questions. These do not add executed test evidence.
+
 This is the C# counterpart of advanced A1–A4 in the [route map](../README.md#choose-a-route-beginner-or-advanced): steps 2–4 search, step 6 broker, step 5 alternate surfaces and steps 7–8 concurrency/full-suite evidence. For the beginner route use the shared [B1–B3 questions](../docs/BEGINNER-EXERCISES.md). Select one language only. If SDK/runtime prerequisites are unavailable, mark execution **not run**.
 
 **Contract = required behavior/security guarantees**, not a legal agreement or interface. For example, Alice's exact `Contract` search must return **200 with 101 only and only id/name**; anonymous search must return **401 without a database query**. `Contract` is also the sample document title, a separate use of the word. Read the shared [definition and examples](../docs/BEGINNER-EXERCISES.md#what-does-contract-mean-in-this-lab) before predicting cases; these are expectations, not observed C# results.

@@ -12,6 +12,8 @@ Choose **one language and one implementation track** in the existing [module 03 
 
 ### Choose a route: beginner or advanced
 
+**C# equivalents:** [B1–B3 review results/logs](dotnet/demo.md) and [C# fix diffs/explanations](dotnet/BEGINNER-SOLUTIONS.md) parallel the Java materials. Both are answer-bearing and included in the training repository's print package; C# compilation/execution remains unverified.
+
 Choose within the existing class allocation, not both full routes back-to-back. The scenario and secure expectations are identical; advanced means deeper source tracing, repair and independent evidence, not weaker rules.
 
 **Route is not implementation track:** beginner/advanced describes difficulty; Java/C# selects language; exercise/fixed selects source implementation for an individual run. Advanced starts with exercise and uses fixed later for comparison—never compile both together.

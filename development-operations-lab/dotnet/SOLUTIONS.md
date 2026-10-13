@@ -2,6 +2,8 @@
 
 This C# key supports advanced A1–A4 in the [route map](../README.md#choose-a-route-beginner-or-advanced). The shared [beginner key](../solutions/BEGINNER-SOLUTIONS.md) answers B1–B3. Expected behavior is not evidence that C# was compiled or executed.
 
+For B1–B3 see the [C# review capture/results](demo.md) and [C# fix diffs with explanations](BEGINNER-SOLUTIONS.md). These reference existing source without applying patches or claiming runtime results.
+
 The fixed implementation is a reference, not production certification. Expected 37/37 is **unverified until compiled and run with suitable tooling**. Do not weaken, delete or invert tests to hide exercise findings.
 
 ## Lab 1: exact supplier-scoped search
